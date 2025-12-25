@@ -1,13 +1,24 @@
-# React + Vite
+# Retro Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A retro-futuristic, interactive developer portfolio built with React, Vite, and Framer Motion.
 
-Currently, two official plugins are available:
+## 🌟 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*   **Retro Aesthetics**: CRT scanlines, neon glows, and pixel layouts.
+*   **Interactive 3D**: `Three.js` powered background and tilt cards.
+*   **Magnetic Navigation**: Elements gravitate towards the cursor.
+*   **Page Transitions**: CRT turn-off/on effects.
+*   **Detailed Projects**: Tabbed project views with tech specs and installation guides.
 
+## 🚀 Usage
 
-CD retro-portfolio
-npm run build 
-npm run dev
+1.  Clone the repository.
+2.  Run `npm install`.
+3.  Run `npm run dev`.
+
+## 🛠 Tech Stack
+
+*   React + Vite
+*   Framer Motion
+*   Three.js / React Three Fiber
+*   Lucide React
