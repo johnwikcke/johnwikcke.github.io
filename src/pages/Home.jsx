@@ -49,11 +49,16 @@ const Home = () => {
                     }}
                 >
                     <div style={{ flex: 1, minWidth: '300px' }}>
-                        <p style={{ color: 'var(--color-secondary)', fontFamily: 'var(--font-display)', marginBottom: 'var(--spacing-sm)' }}>
+                        <p style={{
+                            color: 'var(--color-secondary)',
+                            fontFamily: 'var(--font-display)',
+                            marginBottom: 'var(--spacing-sm)',
+                            fontSize: 'clamp(0.8rem, 2vw, 1rem)'
+                        }}>
                             INITIALIZING SYSTEM...
                         </p>
-                        <GlitchText text={profile.name} style={{ fontSize: '4rem', margin: 0 }} />
-                        <h2 style={{ color: 'var(--color-text)', marginTop: 'var(--spacing-sm)', opacity: 0.8 }}>
+                        <GlitchText text={profile.name} style={{ fontSize: 'clamp(2rem, 5vw, 4rem)', margin: 0, lineHeight: 1.2 }} />
+                        <h2 style={{ color: 'var(--color-text)', marginTop: 'var(--spacing-sm)', opacity: 0.8, fontSize: 'clamp(1rem, 3vw, 1.5rem)' }}>
                             {profile.title}
                         </h2>
                         <p style={{ maxWidth: '600px', lineHeight: '1.6', marginTop: 'var(--spacing-md)' }}>

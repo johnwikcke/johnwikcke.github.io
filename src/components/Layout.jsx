@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 import InteractiveBackground from './InteractiveBackground';
 import Magnetic from './Magnetic';
 import '../styles/global.css';
 
 const Layout = ({ children, title = "Portfolio" }) => {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { scrollY } = useScroll();
 
     useMotionValueEvent(scrollY, "change", (latest) => {
@@ -82,42 +84,91 @@ const Layout = ({ children, title = "Portfolio" }) => {
                     </Link>
                 </motion.div>
 
-                <motion.div
-                    style={{ display: 'flex', justifyContent: 'center' }}
-                    variants={{
-                        top: { gap: "var(--spacing-xl)" },
-                        scrolled: { gap: "var(--spacing-lg)" }
-                    }}
-                    transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                >
-                    {['HOME', 'PROJECTS', 'JOURNEY', 'B-SIDES', 'CONTACT'].map((item) => (
-                        <Magnetic key={item}>
-                            <Link
-                                to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
-                                style={{
-                                    fontSize: '1.1rem',
-                                    fontWeight: 'bold',
-                                    position: 'relative',
-                                    color: 'var(--color-text)',
-                                    textDecoration: 'none',
-                                    display: 'block',
-                                    padding: '0.5rem'
-                                }}
-                            >
-                                <motion.span
-                                    animate={{ opacity: isScrolled ? 0.9 : 1 }}
-                                    whileHover={{ color: 'var(--color-primary)' }}
-                                    style={{ display: 'block' }}
+                <div className="desktop-nav">
+                    <motion.div
+                        style={{ display: 'flex', justifyContent: 'center' }}
+                        variants={{
+                            top: { gap: "var(--spacing-xl)" },
+                            scrolled: { gap: "var(--spacing-lg)" }
+                        }}
+                        transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                    >
+                        {['HOME', 'PROJECTS', 'JOURNEY', 'B-SIDES', 'CONTACT'].map((item) => (
+                            <Magnetic key={item}>
+                                <Link
+                                    to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
+                                    style={{
+                                        fontSize: '1.1rem',
+                                        fontWeight: 'bold',
+                                        position: 'relative',
+                                        color: 'var(--color-text)',
+                                        textDecoration: 'none',
+                                        display: 'block',
+                                        padding: '0.5rem'
+                                    }}
                                 >
-                                    {item}
-                                </motion.span>
-                            </Link>
-                        </Magnetic>
-                    ))}
-                </motion.div>
+                                    <motion.span
+                                        animate={{ opacity: isScrolled ? 0.9 : 1 }}
+                                        whileHover={{ color: 'var(--color-primary)' }}
+                                        style={{ display: 'block' }}
+                                    >
+                                        {item}
+                                    </motion.span>
+                                </Link>
+                            </Magnetic>
+                        ))}
+                    </motion.div>
+                </div>
+
+                <div className="mobile-nav-toggle" style={{ display: 'none' }}>
+                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} style={{ background: 'none', border: 'none', color: 'var(--color-primary)' }}>
+                        {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
+                    </button>
+                </div>
 
                 <div /> {/* Spacer for grid centering */}
             </motion.nav>
+
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        style={{
+                            position: 'fixed',
+                            top: '80px',
+                            left: 0,
+                            right: 0,
+                            background: 'rgba(13, 13, 20, 0.95)',
+                            backdropFilter: 'blur(10px)',
+                            padding: '2rem',
+                            borderBottom: '1px solid var(--color-primary)',
+                            zIndex: 99,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '1.5rem',
+                            alignItems: 'center'
+                        }}
+                    >
+                        {['HOME', 'PROJECTS', 'JOURNEY', 'B-SIDES', 'CONTACT'].map((item) => (
+                            <Link
+                                key={item}
+                                to={item === 'HOME' ? '/' : `/${item.toLowerCase()}`}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                style={{
+                                    fontSize: '1.5rem',
+                                    color: 'var(--color-text)',
+                                    textDecoration: 'none',
+                                    fontFamily: 'var(--font-display)'
+                                }}
+                            >
+                                {item}
+                            </Link>
+                        ))}
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             <main className="container" style={{ padding: 'var(--spacing-lg) var(--spacing-md)' }}>
                 {children}
