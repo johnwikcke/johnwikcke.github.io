@@ -6,13 +6,13 @@ const Stars = (props) => {
     const ref = useRef();
 
     const [sphere] = useState(() => {
-        const temp = new Float32Array(5000 * 3);
-        for (let i = 0; i < 5000; i++) {
+        const temp = new Float32Array(1000 * 3); // Reduced from 5000 to 1000 for performance
+        for (let i = 0; i < 1000; i++) {
             const u = Math.random();
             const v = Math.random();
             const theta = 2 * Math.PI * u;
             const phi = Math.acos(2 * v - 1);
-            const r = 1.5 * Math.cbrt(Math.random()); // Radius 1.5
+            const r = 1.5 * Math.cbrt(Math.random());
             const x = r * Math.sin(phi) * Math.cos(theta);
             const y = r * Math.sin(phi) * Math.sin(theta);
             const z = r * Math.cos(phi);
@@ -36,7 +36,7 @@ const Stars = (props) => {
                 <PointMaterial
                     transparent
                     color="#00ff41"
-                    size={0.002}
+                    size={0.003}
                     sizeAttenuation={true}
                     depthWrite={false}
                 />
@@ -46,6 +46,9 @@ const Stars = (props) => {
 };
 
 const InteractiveBackground = () => {
+    // Simple check to avoid rendering heavy 3D on mobile
+    const isMobile = window.innerWidth < 768;
+
     return (
         <div style={{
             position: 'fixed',
@@ -55,11 +58,13 @@ const InteractiveBackground = () => {
             height: '100vh',
             zIndex: -1,
             pointerEvents: 'none',
-            background: 'radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%)' // Fallback/Blend
+            background: 'radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%)'
         }}>
-            <Canvas camera={{ position: [0, 0, 1] }}>
-                <Stars />
-            </Canvas>
+            {!isMobile && (
+                <Canvas camera={{ position: [0, 0, 1] }} gl={{ powerPreference: "high-performance" }}>
+                    <Stars />
+                </Canvas>
+            )}
         </div>
     );
 };

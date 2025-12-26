@@ -38,6 +38,7 @@ const Home = () => {
                     alignItems: 'flex-start'
                 }}>
                 <motion.div
+                    className="hero-container"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
@@ -45,7 +46,7 @@ const Home = () => {
                         display: 'flex',
                         alignItems: 'center',
                         gap: 'var(--spacing-xl)',
-                        flexWrap: 'wrap-reverse'
+                        // flexWrap handled by CSS now for better control
                     }}
                 >
                     <div style={{ flex: 1, minWidth: '300px' }}>
