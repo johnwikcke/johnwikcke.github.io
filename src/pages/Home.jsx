@@ -84,8 +84,7 @@ const Home = () => {
                         transition={{ duration: 0.8, ease: "backOut" }}
                         style={{
                             position: 'relative',
-                            width: '380px',
-                            height: '380px',
+                            // width/height handled by CSS/img now
                         }}
                     >
                         <motion.div

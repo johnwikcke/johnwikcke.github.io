@@ -49,15 +49,7 @@ const Layout = ({ children, title = "Portfolio" }) => {
                     }
                 }}
                 transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1fr auto 1fr',
-                    alignItems: 'center',
-                    position: 'sticky',
-                    top: 0,
-                    zIndex: 100,
-                    width: '100%'
-                }}
+                className="main-nav"
             >
                 <motion.div
                     variants={{
